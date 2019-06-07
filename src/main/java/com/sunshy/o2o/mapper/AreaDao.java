@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface AreaDao {
 
+    /***
+     *
+     * 查询所有的Area信息
+     *
+     * @return
+     */
     List<Area> queryArea();
 
 
