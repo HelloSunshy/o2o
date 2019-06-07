@@ -44,6 +44,8 @@ public class Shop {
 
 	private ShopCategory shopCategory;
 
+	private PersonInfo owner;
+
 	private ShopCategory parentCategory;
 
 

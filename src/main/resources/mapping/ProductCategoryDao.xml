@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshy.o2o.mapper.ProductCategoryDao">
+
+    <resultMap id="productCategoryMap" type="com.sunshy.o2o.entity.ProductCategory">
+
+      <id column="product_category_id" property="productCategoryId" jdbcType="INTEGER"></id>
+        <result property="shopId" column="shop_id" jdbcType="INTEGER"></result>
+        <result property="productCategoryName" column="product_category_name" jdbcType="VARCHAR"></result>
+        <result property="productCategoryDesc" column="product_category_desc" jdbcType="VARCHAR"></result>
+        <result property="priority" column="priority" jdbcType="INTEGER"></result>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"></result>
+        <result property="lastEditTime" column="last_edit_time" jdbcType="TIMESTAMP"></result>
+
+    </resultMap>
+
+    <select id="queryProductCategoryByShopId" parameterType="Long" resultMap="productCategoryMap">
+
+      SELECT
+      product_category_name,
+      product_category_id,
+      priority,
+      shop_id,
+      create_time
+      FROM tb_product_category
+      WHERE shop_id = #{shopId}
+      ORDER BY priority DESC
+    </select>
+
+
+    <insert id="insertListProductCategory" parameterType="java.util.List">
+
+        insert into   tb_product_category (product_category_name,product_category_desc,priority,
+        create_time,last_edit_time,shop_id) values
+
+        <foreach collection="list" item="productCategory" index="index"
+                 separator=",">
+            (
+            #{productCategory.productCategoryName},
+            #{productCategory.productCategoryDesc},
+            #{productCategory.priority},
+            #{productCategory.createTime},
+            #{productCategory.lastEditTime},
+            #{productCategory.shopId}
+            )
+        </foreach>
+
+    </insert>
+
+
+    <delete id="deleteById" parameterType="Long" >
+
+        delete from tb_product_category
+
+        where product_category_id = #{productCategoryId}
+
+        and shop_id = #{shopId}
+
+    </delete>
+
+</mapper>
